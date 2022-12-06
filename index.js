@@ -29,11 +29,18 @@ function myFunction() {
 🌟 EXAMPLE: invoking `summation(4)` should return 10 because 1+2+3+4 is 10. 
 💡 NOTE: you may use a for loop for this function if you wish 
 */
+ 
+function summation(numb) {
+ let sum = numb
+ let changingNum = numb;
+while (changingNum !== 0){
+  changingNum--
+  sum = sum + changingNum
+}
+return sum
+ }
+ console.log(summation(2));
 
-function summation(/*Your Code Here*/) {
-  /*Your Code Here*/
-
-  }
  
 
 // 🦁🦁🦁 Topic 2: ADVANCED Array Methods 🦁🦁🦁
@@ -60,10 +67,14 @@ const zooAnimals = [
   💡 NOTE: the array returned should be an array of strings, and each string should follow this pattern: "name: {name}, scientific: {scientific name}"
   */
 
-  function animalNames(/*Your Code Here*/){
-    /*Your Code Here*/
+  function animalNames(array){
+    const displayNames = [];
+    array.forEach(function(names){
+     displayNames.push(`name: ${names.animal_name}, scientific: ${names.scientific_name}`);
+    })
+    return displayNames
   }
-  
+  console.log(animalNames(zooAnimals));
 
   /* 🦁🦁🦁 Request 2: .map() 🦁🦁🦁
   The zoo needs a list of all their animal's names converted to lower case. 
@@ -75,10 +86,13 @@ const zooAnimals = [
   💡 NOTE: Do some research for other methods that can help help you
   */
 
-  function lowerCaseNames(/*Your Code Here*/){
-    /*Your Code Here*/
+  function lowerCaseNames(zooArray){
+    const lowercase = zooArray.map((item) => {
+      return item.animal_name.toLowerCase()
+    })
+    return lowercase
   }
-  
+  console.log(lowerCaseNames(zooAnimals));
   
   /* 🦁🦁🦁 Request 3: .filter() 🦁🦁🦁
   The zoo is concerned about animals with a lower population count. 
@@ -88,8 +102,13 @@ const zooAnimals = [
   3. Return this new array
   */
 
-  function lowPopulationAnimals(/*Your Code Here*/){
-    /*Your Code Here*/
+  function lowPopulationAnimals(array){
+    const pop = array.filter((item) => {
+      if(item.population < 5){
+        return item.population
+      }
+    })
+    return pop
   }
   
 
@@ -102,8 +121,11 @@ const zooAnimals = [
   💡 NOTE: Remember the reduce method takes two arguments: a callback (which itself takes two args - the accumulator and the item), and an initial value for the count. Check MDN/W3Schools for syntax!
   */
 
-  function USApop(/*Your Code Here*/){
-    /*Your Code Here*/
+  function USApop(zooArray){
+    const sumPop = zooArray.reduce((acc, item) => {
+      return acc + item.population;
+    } ,0)
+    return sumPop;
   }
   
   
@@ -116,8 +138,10 @@ const zooAnimals = [
     💡 NOTE: The tests for 'consume' will pass if it is created correctly and also after you correctly complete the functions 'add' and 'greeting' below in Step 2.
   */
 
-  function consume(/*Your Code Here */){
-    /*Your Code Here */
+  function consume(a, b, cb){
+    a = a;
+    b = b;
+    return cb(a, b);
   }
  
   
@@ -128,20 +152,22 @@ const zooAnimals = [
  2. Return the sum of those numbers
  */
 
-function add(/*Your Code Here */){
-    /*Your Code Here*/
+function add(num1, num2){
+    var add = num1 + num2
+    return add
   }
-
+console.log(add(3,8));
 
 /* Use multiply to do the following:
 1. Receive two numbers as an argument that are passed in from its first and second parameters
 2. Return the product of those numbers
 */
 
-function multiply(/*Your Code Here */){
-   /*Your Code Here */
+function multiply(num1, num2){
+   var mult = num1 * num2
+   return mult
   }
-
+console.log(multiply(3,7));
 
  /* Use greeting to do the following:
 1. Receive two strings (a first name and last name) as an argument that are passed in from its first and second parameters
@@ -149,16 +175,17 @@ function multiply(/*Your Code Here */){
 💡 NOTE: The string returned must match the format above or the test will not pass!
 */
 
-function greeting(/*Your Code Here */){
-   return /*Your Code Here */
+function greeting(first, last){
+   return `Hello ${first} ${last}, nice to meet you!`
   }
+  console.log(greeting('Robert', 'Murphy'));
   
   
 // 🦁🦁🦁 Step 3: Check your work by un-commenting the following calls to consume(): 🦁🦁🦁 
 // ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️ ⬇️
-// console.log(consume(2, 2, add)); // 4
-// console.log(consume(10, 16, multiply)); // 160
-// console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
+ console.log(consume(2, 2, add)); // 4
+ console.log(consume(10, 16, multiply)); // 160
+ console.log(consume("Mary", "Poppins", greeting)); // Hello Mary Poppins, nice to meet you!
 
 
 
@@ -175,8 +202,10 @@ function greeting(/*Your Code Here */){
 - Instances of CuboidMaker should initialize `length`, `width` and `height` properties
 */
 
-function CuboidMaker(/*Your Code Here */){
-  /*Your Code Here */
+function CuboidMaker({length, width, height}){
+  this.length = length;
+  this.width = width;
+  this.height = height;
 }
 
 
@@ -185,7 +214,10 @@ function CuboidMaker(/*Your Code Here */){
   💡 NOTE: Formula for cuboid volume: length * width * height   
 */
 
-
+CuboidMaker.prototype.volume = function(vol){
+vol = this.length * this.width * this.height
+return vol
+}
 
 
 /* 🐴🐴🐴 Step 3: Surface Area Method 🐴🐴🐴
@@ -193,14 +225,17 @@ function CuboidMaker(/*Your Code Here */){
   💡 NOTE: Formula for cuboid surface area: 2 * (length * width + length * height + width * height)  
 */
 
-
+CuboidMaker.prototype.surfaceArea = function(surf){
+ surf = 2 * (this.length * this.width + this.length * this.height + this.width * this.height)
+ return surf;
+}
 
 
 /* 🐴🐴🐴 Step 4: Create a new object that uses CuboidMaker (not auto graded)🐴🐴🐴
   Create an object called cuboid that uses the new keyword to use our CuboidMaker constructor
   Add properties and values of length: 4, width: 5, and height: 5 to cuboid. */
 
-
+const cuboid = new CuboidMaker(4, 5, 5)
 
 
 
@@ -214,9 +249,18 @@ function CuboidMaker(/*Your Code Here */){
 //Using CuboidMakerTwo, take your prototypes from above and refactor into class syntax. Then, create an object called cuboidTwo that uses the new keyword to use our CuboidMakerTwo class.
  
 class CuboidMakerTwo{
-
+  constructor({length, width, height}){
+  this.length = length;
+  this.width = width;
+  this.height = height;
+  }
+  volume(){
+    return this.length * this.width * this.height
+  }
+  surfaceArea(){
+return 2 * (this.length * this.width + this.length * this.height + this.width * this.height)
+  }
 }
-
 
 
 
